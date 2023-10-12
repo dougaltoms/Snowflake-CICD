@@ -21,9 +21,13 @@ jobs:
       - name: Install SQLFluff
         run: pip install sqlfluff
 
-      - name: Get SQL Files
-        id: get-sql-files
-        run: git ls-files > files.txt
+      - name: Get SQL Scripts
+        id: get-sql-scripts
+        run: git ls-files '**.sql' > sql_scripts.txt
+
+      - name: Get Deployment Scripts
+        id: get-deployment-scripts
+        run: git ls-files '**/all_deployment_scripts/**.sql' > deployment_scripts.
 
       - name: Execute validation.py
         run: python .github/workflows/validate.py
