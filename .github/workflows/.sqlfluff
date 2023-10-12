@@ -1,0 +1,12 @@
+[sqlfluff]
+dialect = snowflake
+exclude_rules = aliasing.*, ambiguous.*, convention*, jinja.*, layout.*, references.*, structure.*, tsql.*
+
+[rules]
+rules = CP01, CP02, CV09
+
+[sqlfluff:rules:capitalisation.keywords]
+capitalisation_policy = upper
+
+[sqlfluff:rules:capitalisation.identifiers]
+unquoted_identifiers_policy = all
