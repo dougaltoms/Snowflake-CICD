@@ -28,13 +28,12 @@ jobs:
       - name: Get SQL Files
         id: get-sql-files
         run: |
-          SQL_FILES=$(git ls-files)
-          echo "::set-output
-          name=sql_files::$SQL_FILES"
+          git ls-files > files.txt
+          cat files.txt
 
       - name: Loop
         run: |
-          for file in ${{ steps.get-sql-files.outputs.sql_files }}
+          for file in files.txt
           do 
             echo "Processing file: $file"
           done
@@ -43,6 +42,3 @@ jobs:
         id: get-changed-files
         run: |
           git ls-files '*.sql'
-
-      - name: Return files
-        run: cat files.txt
