@@ -26,7 +26,7 @@ jobs:
         run: pip install sqlfluff
 
       - name: Get Branch Name
-        run: git diff --name-only test-branch..$GITHUB_HEAD_REF
+        run: git diff --name-only $GITHUB_HEAD_REF..main
 
       - name: Get SQL Files
         id: get-sql-files
