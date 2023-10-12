@@ -3,7 +3,7 @@ def main():
     import subprocess
     import sys
 
-    with open('files.txt', 'r') as file:
+    with open('sql_scripts.txt', 'r') as file:
         sql_files = file.read().splitlines()
 
     for script in sql_files:
