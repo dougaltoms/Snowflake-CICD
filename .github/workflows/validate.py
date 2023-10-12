@@ -12,7 +12,7 @@ def main():
             print(f"Validating {script}")
             result = subprocess.run(['sqlfluff', 'lint', script, '-d', 'snowflake'] , capture_output=True, text=True)
             
-            if result.return_code == 1:
+            if result.returncode == 1:
                 raise Exception(f"{result.stdout}")
                 
             else:
