@@ -27,7 +27,10 @@ jobs:
 
       - name: Get Deployment Scripts
         id: get-deployment-scripts
-        run: git ls-files '**/all_deployment_scripts/**.sql' > deployment_scripts.
+        run: |
+          git ls-files '**/all_deployment_scripts/**.sql' > deployment_scripts.txt
+          cat deployment_scripts.txt
+        
 
       - name: Execute validation.py
         run: python .github/workflows/validate.py
