@@ -4,6 +4,9 @@ on:
   push:
     branches: 
       - 'dev_**' # Trigger the workflow to run on PUSH events to `dev_` branches
+    paths:
+      - '**.sql' # Only trigger on pushes to .sql files
+  workflow_dispatch:
 
 jobs:
   validate:
