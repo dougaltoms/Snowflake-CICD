@@ -16,7 +16,8 @@ def main():
             result = subprocess.run(['sqlfluff', 'lint', script, '-d', 'snowflake'] , capture_output=True, text=True)
     
             if result.returncode == 1:
-                print("Validation FAILED")
+                print('Validation FAILED')
+                print(f'{result.stdout}')
                 sys.exit(1)
 
             else:
