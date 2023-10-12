@@ -31,4 +31,4 @@ jobs:
           git ls-files > files.txt
 
       - name: Execute validation.py
-        run: python validate.py
+        run: python .github/workflows/validate.py
