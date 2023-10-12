@@ -6,7 +6,7 @@ exclude_rules = aliasing.*, ambiguous.*, convention*, jinja.*, layout.*, referen
 rules = CP01, CP02, CV09
 
 [sqlfluff:rules:capitalisation.keywords]
-capitalisation_policy = upper
+capitalisation_policy = lower
 
 [sqlfluff:rules:capitalisation.identifiers]
 unquoted_identifiers_policy = all
