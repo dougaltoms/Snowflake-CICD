@@ -6,11 +6,18 @@ def main():
         sql_files = file.read().splitlines()
 
     for script in sql_files:
+        
         if '.sql' in script:
+            print("="*70)
+            print(f"Validating {script}")
             result = subprocess.run(['sqlfluff', 'lint', script, '-d', 'snowflake'] , capture_output=True, text=True)
-            print(f"Linting {script}")
-            print(result.stdout)
-            print("="*20)
+            
+            if result.return_code == 1:
+                raise Exception(f"{result.stdout}")
+                
+            else:
+                print(result.stdout)
+                print("="*70)   
 
 if __name__ == "__main__":
     main()
