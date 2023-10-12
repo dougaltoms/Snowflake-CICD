@@ -34,9 +34,4 @@ jobs:
           git ls-files > files.txt
 
       - name: Execute validation.py
-        run: |
-          python .github/workflows/validate.py
-          if [ $? -ne 0 ]; then
-            echo "Validation failed"
-            exit 1
-          done
+        run: python .github/workflows/validate.py
