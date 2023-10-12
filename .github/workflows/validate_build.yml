@@ -2,7 +2,8 @@
 name: Validate Build
 on:
   push:
-    branches: 'dev_**' # Trigger the workflow to run on PUSH events to `dev_` branches
+    branches: 
+      - 'dev_**' # Trigger the workflow to run on PUSH events to `dev_` branches
 
 jobs:
   validate:
