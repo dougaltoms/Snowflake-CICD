@@ -25,6 +25,20 @@ jobs:
       - name: Install SQLFluff
         run: pip install sqlfluff
 
+      - name: Get SQL Files
+        id: get-sql-files
+        run: |
+          SQL_FILES=$(git ls-files)
+          echo "::set-output
+          name=sql_files::$SQL_FILES"
+
+      - name: Loop
+        run: |
+          for file in ${{ steps.get-sql-files.outputs.sql_files }}
+          do 
+            echo "Processing file: $file"
+          done
+
       - name: Get Changed files
         id: get-changed-files
         run: |
