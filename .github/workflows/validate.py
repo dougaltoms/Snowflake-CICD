@@ -13,8 +13,9 @@ def main():
             result = subprocess.run(['sqlfluff', 'lint', script, '-d', 'snowflake'] , capture_output=True, text=True)
             
             if result.returncode == 1:
-                raise Exception(f"{result.stdout}")
-                
+                print(f"{result.stdout}")
+                sys.exit(1)
+
             else:
                 print(result.stdout)
                 print("="*70)   
