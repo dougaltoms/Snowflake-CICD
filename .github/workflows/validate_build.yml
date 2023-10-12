@@ -25,6 +25,9 @@ jobs:
       - name: Install SQLFluff
         run: pip install sqlfluff
 
+      - name: Get Branch Name
+        run: echo $GITHUB_REF
+
       - name: Get SQL Files
         id: get-sql-files
         run: |
