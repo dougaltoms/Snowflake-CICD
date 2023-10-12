@@ -28,9 +28,7 @@ jobs:
       - name: Get Changed files
         id: get-changed-files
         run: |
-          git diff --name-only 
-          ${{ github.event.before }} 
-          ${{ github.sha }} > files.txt
+          git ls-files '*.sql'
 
       - name: Return files
         run: cat files.txt
