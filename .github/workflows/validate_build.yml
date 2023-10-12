@@ -2,10 +2,7 @@
 name: Validate Build
 on:
   push:
-    branches: ["main"]
-  pull_request:
-    branches: ["main"]
-
+    branches: 'dev_**'
   workflow_dispatch:
 
 jobs:
@@ -13,7 +10,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - name: Checkout Repository
         uses: actions/checkout@v3
 
@@ -25,13 +21,9 @@ jobs:
       - name: Install SQLFluff
         run: pip install sqlfluff
 
-      - name: Get Branch Name
-        run: git diff --name-only $GITHUB_HEAD_REF..main
-
       - name: Get SQL Files
         id: get-sql-files
-        run: |
-          git ls-files > files.txt
+        run: git ls-files > files.txt
 
       - name: Execute validation.py
         run: python .github/workflows/validate.py
