@@ -2,35 +2,42 @@
 name: Validate Build
 on:
   push:
-    branches: 'dev_**'
-  workflow_dispatch:
+    branches: 'dev_**' # Trigger the workflow to run on PUSH events to `dev_` branches
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
+  validate:
+    runs-on: ubuntu-latest # Need to investigate best practice here
 
+    # A job comprises indivudal steps
     steps:
+      # Checkout repo onto runner
       - name: Checkout Repository
         uses: actions/checkout@v3
 
+      # Set up Python env
       - name: Set Up Python
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v4
         with:
-          python-version: "3.10"
+          python-version: "3.10" # Think about version
 
+      # Install required packages for linting
       - name: Install SQLFluff
         run: pip install sqlfluff
 
+      # Save names of all .sql files to loop through
+      # Maybe these can be stored in variables rather than text file
       - name: Get SQL Scripts
         id: get-sql-scripts
         run: git ls-files '**.sql' > sql_scripts.txt
 
+      # Likewise for deployment scripts
       - name: Get Deployment Scripts
         id: get-deployment-scripts
         run: |
           git ls-files '**/all_deployment_scripts/**.sql' > deployment_scripts.txt
           cat deployment_scripts.txt
-        
 
+      # Run validation python script
+      # This uses custom linting rules with SQLFluff to validate scripts  
       - name: Execute validation.py
         run: python .github/workflows/validate.py
