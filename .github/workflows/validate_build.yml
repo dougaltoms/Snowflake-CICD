@@ -29,16 +29,6 @@ jobs:
         id: get-sql-files
         run: |
           git ls-files > files.txt
-          cat files.txt
 
-      - name: Loop
-        run: |
-          for file in files.txt
-          do 
-            echo "Processing file: $file"
-          done
-
-      - name: Get Changed files
-        id: get-changed-files
-        run: |
-          git ls-files '*.sql'
+      - name: Execute validation.py
+        run: python validate.py
