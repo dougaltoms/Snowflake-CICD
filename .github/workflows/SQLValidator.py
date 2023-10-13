@@ -29,7 +29,6 @@ class SQLValidator:
                 if not search_for_naming:
                     raise Exception('\u2613 FAIL: incorrect naming convention for task. Task name must be prefixed with TSK_')
                 else:
-                    print(search_for_naming)
                     return f"\u2714 PASS: '{search_for_naming.group(0)}' follows naming convention"
             else:
                 pass
