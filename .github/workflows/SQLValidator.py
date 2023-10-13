@@ -27,11 +27,12 @@ class SQLValidator:
                 search_for_naming = re.search(task_name, open(self.script, 'r').read(), re.IGNORECASE | re.DOTALL)
 
                 if not search_for_naming:
-                    raise Exception('Validation FAIL: incorrect naming convention for task. Task name must be prefixed with TSK_')
+                    raise Exception('\u2613 FAIL: incorrect naming convention for task. Task name must be prefixed with TSK_')
                 else:
-                    pass
+                    print(search_for_naming)
+                    return f"\u2714 PASS: '{search_for_naming.group(0)}' follows naming convention"
             else:
-                pass
+                return pass
 
     def check_procs(self):
 
@@ -41,16 +42,16 @@ class SQLValidator:
         # Read in .sql script
         with open(self.script, 'r') as file:
 
-            # Search for any procedure DDL
+            # Search for any task DDL
             search_for_procs = re.search(proc_search, file.read(), re.IGNORECASE | re.DOTALL)
 
-            # If proc name doesn't match regex pattern then they are named incorrectly
+            # If task name doesn't match regex pattern then they are named incorrectly
             if search_for_procs:
                 search_for_naming = re.search(proc_name, open(self.script, 'r').read(), re.IGNORECASE | re.DOTALL)
 
                 if not search_for_naming:
-                    raise Exception('Validation FAIL: incorrect naming convention for stored procedure. Procedure name must be prefixed with PRC_')
+                    raise Exception('\u2613 FAIL: incorrect naming convention for prcoedure. Procedure name must be prefixed with PRC_')
                 else:
-                    pass
+                    return f"\u2714 PASS: '{search_for_naming.group(0)}' follows naming convention"
             else:
                 pass
