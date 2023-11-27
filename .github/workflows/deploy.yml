@@ -18,9 +18,14 @@ jobs:
     steps:
     - name: Checkout Repository
       uses: actions/checkout@v3
-    # - name: Check Validation
-    #   id: check_validation
-    #   run: echo "::set-output name=validate::${{ success() }}"
+    - name: Download validation status
+      uses: actions/download-artifact@v3
+      with:
+        name: validation_status
+        path: .github/workflows/validation_status.txt
+    - name: Set validation status variable
+      id: set_validation_status
+      run: echo "validation_passed=$(cat .github/workflows/validation_status.txt)" >> $GITHUB_ENV
     - name: Deploy Code
-      # if: steps.check_validation.outputs.validation_passed == 'true'
+      if: env.validation_passed =='true'
       run: python .github/workflows/deploy.py
