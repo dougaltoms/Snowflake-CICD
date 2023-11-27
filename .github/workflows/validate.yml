@@ -44,17 +44,18 @@ jobs:
       # Run validation python script
       # This uses custom linting rules with SQLFluff to validate scripts  
       - name: Execute validation.py
+        id: validate
         run: python .github/workflows/validate.py
 
-        # Save status of workflow to use in deploy.yml
+      # Save status of workflow to use in deploy.yml
       - name: Save status
         id: save_status
-        run: echo "::set-output name=status::${{ success() }}"
+        run: "echo ::set-output name=status::success"
 
       # Upload status as artifact
       - name: Upload status
         id: upload_status
         uses: actions/upload-artifact@v3
         with:
-          name: validation_status
-          path: .github/workflows/validation_status.txt
+          name: save_status
+          path: .github/workflows/validation_status
