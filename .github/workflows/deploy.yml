@@ -1,0 +1,20 @@
+name: Deploy
+on:
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v3
+    - name: Check Validation
+      id: check_validation
+      run: echo "::set-output name=validation_passed::${{ success() }}"
+    - name: Deploy Code
+      if: steps.check_validation.outputs.validation_passed == 'true'
+      run: python .github/workflows/deploy.py
