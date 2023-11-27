@@ -1,5 +1,5 @@
 # This is a basic workflow to help you get started with Actions
-name: Validate Build
+name: Validate
 on:
   push:
     branches: 
@@ -45,3 +45,16 @@ jobs:
       # This uses custom linting rules with SQLFluff to validate scripts  
       - name: Execute validation.py
         run: python .github/workflows/validate.py
+
+        # Save status of workflow to use in deploy.yml
+      - name: Save status
+        id: save_status
+        run: echo "::set-output name=status::${{ success() }}"
+
+      # Upload status as artifact
+      - name: Upload status
+        id: upload_status
+        uses: actions/upload-artifact@v3
+        with:
+          name: validation_status
+          path: .github/workflows/upload_status.txt
