@@ -22,5 +22,5 @@ jobs:
     #   id: check_validation
     #   run: echo "::set-output name=validate::${{ success() }}"
     - name: Deploy Code
-      if: steps.check_validation.outputs.validation_passed == 'true'
+      # if: steps.check_validation.outputs.validation_passed == 'true'
       run: python .github/workflows/deploy.py
