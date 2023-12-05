@@ -1,7 +1,6 @@
 def main():
 
     from snowflake.snowpark import Session
-    import pandas as pd
     
     snowflake_connection_parameters = {
                             "account": "nh13284.west-europe.azure"
@@ -13,8 +12,8 @@ def main():
     session = Session.builder.configs(snowflake_connection_parameters).create()
 
     print('Starting Deployment')
-    df = session.sql('''SELECT * FROM SNOWFLAKE.ACCOUNT_USAGE.LOGIN_HISTORY;''').to_pandas()
-    df.head()
+    df = session.sql('''SELECT * FROM SNOWFLAKE.ACCOUNT_USAGE.LOGIN_HISTORY;''').show()
+    print(len(df))
     return print('Deployment Successful')
 
 if __name__ == "__main__":
