@@ -1,14 +1,9 @@
 name: Deploy
 on:
-  workflow_run:
-    workflows: ["Validate"]
-    branches: 
-      - 'dev_**'
-    types:
-      - completed
-  # pull_request:
-  #   branches:
-  #     - main
+  # Run on Re/Opened PRs
+  pull_request:
+    types: [opened, reopened]
+  # And trigger manually
   workflow_dispatch:
 
 jobs:
@@ -16,16 +11,28 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    # Checkout Repo
     - name: Checkout Repository
       uses: actions/checkout@v3
-    - name: Download validation status
-      uses: actions/download-artifact@v3
+
+    # Set Up Python Env
+    - name: Set Up Python
+      uses: actions/setup-python@v4
       with:
-        name: validation_status
-        path: .github/workflows/validation_status.txt
-    - name: Set validation status variable
-      id: set_validation_status
-      run: echo "validation_passed=$(cat .github/workflows/validation_status.txt)" >> $GITHUB_ENV
-    - name: Deploy Code
-      if: env.validation_passed =='true'
+        python-version: "3.8"
+
+    # Connect to Snowflake Account
+    - name: Initiate Snowflake Connection
       run: python .github/workflows/deploy.py
+      
+    # - name: Download validation status
+    #   uses: actions/download-artifact@v3
+    #   with:
+    #     name: validation_status
+    #     path: .github/workflows/validation_status.txt
+    # - name: Set validation status variable
+    #   id: set_validation_status
+    #   run: echo "validation_passed=$(cat .github/workflows/validation_status.txt)" >> $GITHUB_ENV
+    # - name: Deploy Code
+    #   if: env.validation_passed =='true'
+    #   run: python .github/workflows/deploy.py
