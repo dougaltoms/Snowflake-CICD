@@ -12,7 +12,7 @@ def main():
     session = Session.builder.configs(snowflake_connection_parameters).create()
 
     print('Starting Deployment')
-    df = session.sql('''SELECT * FROM SNOWFLAKE.ACCOUNT_USAGE.LOGIN_HISTORY;''').show()
+    df = session.sql('''SELECT * FROM SNOWFLAKE.ACCOUNT_USAGE.LOGIN_HISTORY''').collect()
     print(len(df))
     return print('Deployment Successful')
 
