@@ -1,15 +1,12 @@
 name: Deploy
 on:
-  # Run on Re/Opened PRs
-  pull_request:
-    types: [opened, reopened]
-  # And trigger manually
-  workflow_dispatch:
-
+  pull_request_review:
+    types: [submitted]
 jobs:
   deploy:
+    if: github.event.review.state == 'approved'
     runs-on: ubuntu-latest
-
+    
     steps:
     # Checkout Repo
     - name: Checkout Repository
@@ -30,15 +27,3 @@ jobs:
     # Connect to Snowflake Account
     - name: Initiate Snowflake Connection
       run: python .github/workflows/deploy.py
-      
-    # - name: Download validation status
-    #   uses: actions/download-artifact@v3
-    #   with:
-    #     name: validation_status
-    #     path: .github/workflows/validation_status.txt
-    # - name: Set validation status variable
-    #   id: set_validation_status
-    #   run: echo "validation_passed=$(cat .github/workflows/validation_status.txt)" >> $GITHUB_ENV
-    # - name: Deploy Code
-    #   if: env.validation_passed =='true'
-    #   run: python .github/workflows/deploy.py
